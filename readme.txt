@@ -45,3 +45,6 @@ No, this plugin makes it possible to redirect from the page/post you create in W
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.0 =
+* Initial release
