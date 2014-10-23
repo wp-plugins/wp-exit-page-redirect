@@ -1,14 +1,14 @@
 <?php
 /*
 Plugin Name: WP Exit Page Redirect
-Plugin URI: http://wpparadise.com/wp-exit-page-redirect/
+Plugin URI: http://www.lgr.ca/wp-exit-page-redirect/
 Description: Create landing pages on your WordPress website that will automatically redirect to another website after a set period of time. Great for exit pages before sending people to another website. 
-Version: 1.0
+Version: 1.1
 Author: Lee Robertson
-Author Email: lee@wpparadise.com
+Author Email: lee@lgr.ca
 License:
 
-  Copyright 2011 Lee Robertson (lee@wpparadise.com)
+  Copyright 2011 Lee Robertson (lee@lgr.ca)
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License, version 2, as 
@@ -42,7 +42,7 @@ function lgr_wpexitpagedefault_options_init() {
 //add some default values
 			$lgrexit_defaultoptions = array(
 			'seconds' => '5',
-			'url' => 'http://wpparadise.com/',
+			'url' => 'http://www.lgr.ca/',
 			'message' => 'Please wait while you are redirected.',
 			'clickhere' => 'Click Here'
 		);
@@ -150,7 +150,7 @@ global $post;
 			$atts = implode('', $atts);
 			$attributes = wp_parse_args($atts, $options);
 		}	
-		echo '<meta http-equiv="refresh" content="'.$attributes['seconds'].'; url='.$attributes['url'].'">';
+		echo '<meta http-equiv="refresh" content="'.$attributes['seconds'].'; url='.$attributes['url'].'" />';
 	}
 }	
 add_action('wp_head', 'lgr_add_meta');
