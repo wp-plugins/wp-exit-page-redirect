@@ -1,9 +1,9 @@
 === WP Exit Page Redirect ===
 Contributors: LGRIS
-Donate link: http://wpparadise.com/wp-exit-page-redirect/
+Donate link: http://www.lgr.ca/wp-exit-page-redirect/
 Tags: exit page, redirect, shortcode, short code, meta redirect
 Requires at least: 3.5
-Tested up to: 3.9
+Tested up to: 4.0
 Stable tag: 1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -13,6 +13,8 @@ Easily create an exit meta tag redirect page to warn users they are leaving your
 == Description ==
 
 Easily create an exit page meta tag redirect in WordPress by adding a shortcode to a post or page. When people visit the page they will be automatically redirected to the website you want them to visit. Great for making an exit warning page or an exit advertising page before people leave your website. 
+
+For a demo of the plugin see here [LGR WP Exit Page Redirect Demo](http://www.lgr.ca/wp-exit-page-redirect-demo/). That page will redirect you to the page on LGR.ca about the plugin after 10 seconds.
 
 == Installation ==
 
