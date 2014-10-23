@@ -43,10 +43,15 @@ No, this plugin makes it possible to redirect from the page/post you create in W
 
 == Changelog ==
 
+= 1.1 =
+* Updating meta refresh tag to work better on some websites. Fixing typos and updating broken URL's. 
+
 = 1.0 =
 * Initial release
 
 == Upgrade Notice ==
+= 1.1 =
+* Updating meta refresh tag to work better on some websites. Fixing typos and updating broken URL's. 
 
 = 1.0 =
 * Initial release
