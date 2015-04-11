@@ -3,7 +3,7 @@
 Plugin Name: WP Exit Page Redirect
 Plugin URI: http://www.lgr.ca/wp-exit-page-redirect/
 Description: Create landing pages on your WordPress website that will automatically redirect to another website after a set period of time. Great for exit pages before sending people to another website. 
-Version: 1.1
+Version: 1.2
 Author: Lee Robertson
 Author Email: lee@lgr.ca
 License:
@@ -44,7 +44,9 @@ function lgr_wpexitpagedefault_options_init() {
 			'seconds' => '5',
 			'url' => 'http://www.lgr.ca/',
 			'message' => 'Please wait while you are redirected.',
-			'clickhere' => 'Click Here'
+			'clickhere' => 'Click here to go now.',
+			'showtimer' => 'off',
+			'timermessage'  => 'Redirecting in',
 		);
 	update_option( 'lgr_exitpage_options', $lgrexit_defaultoptions );
 }
@@ -72,7 +74,16 @@ function lgr_exitpage_do_page() {
 				</tr>
 				<tr valign="top"><th scope="row">Seconds</th>
 					<td><input type="text" name="lgr_exitpage_options[seconds]" value="<?php echo $options['seconds']; ?>" /></td>
+				<tr valign="top"><th scope="row">Show Timer Countdown</th>
+					<td><select name="lgr_exitpage_options[showtimer]" size="1">
+					<option value="on" label="On"<?php if ($options['showtimer']=='on') echo ' selected="selected"'; ?>></option>
+					<option value="off" label="Off"<?php if ($options['showtimer']=='off') echo ' selected="selected"'; ?>></option>
+					</select></td>
 				</tr>
+				<tr valign="top"><th scope="row">Timer Message</th>
+					<td><input type="text" name="lgr_exitpage_options[timermessage]" value="<?php echo $options['timermessage']; ?>" /></td>
+				</tr>
+
 			</table>
 			<p class="submit">
 			<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
@@ -104,9 +115,12 @@ To modify the link text that is used on the page where the shortcode is used sim
 To modify the URL that is used on the page and where the reader will be redirected to add the option [wpexitpage url="http://www.lgr.ca/"] and it will replace the default URL you set above. This needs to be correctly formatted with http:// or https://.</li> 
 <li><strong>Seconds</strong><br />
 To modify the number of seconds before your reader is redirected add the option [wpexitpage seconds="10"] and it will replace the default redirect time you set above.</li>
+<li><strong>Show Countdown Timer</strong><br />
+You can control whether the countdown timer shows in the shortcode by adding the option [wpexitpage showtimer="on"] or  [wpexitpage showtimer="off"]. All other values will be ignored. This can also be set as a global default if you want to always show the timer. <strong>Note:</strong>The countdown timer that shows is independent of the actual meta tag and may take less or more time depending on how fast the exit page loads.</li>
+<li><strong>Timer Message</strong><br />
+To modify the text that is shown before the seconds countdown timer add the option [wpexitpage timermessage="Making you leave in"] and it will replace the default text you set above.
+</li>
 </ul>
-
-
 </p>
 
 	</div>
@@ -117,8 +131,9 @@ function lgr_exitpageoptions_validate($input) {
 	$input['message'] =  wp_filter_nohtml_kses($input['message']);
 	$input['clickhere'] =  wp_filter_nohtml_kses($input['clickhere']);
 	$input['seconds'] =  wp_filter_nohtml_kses($input['seconds']);
+	$input['showtimer'] =  wp_filter_nohtml_kses($input['showtimer']);
+	$input['timermessage'] =  wp_filter_nohtml_kses($input['timermessage']);
 	$input['url'] =  esc_url($input['url']);
-	
 	return $input;
 }
 
@@ -130,9 +145,37 @@ function lgrexitpage_embed_display($atts) {
 		'link' => $options['clickhere'],
 		'seconds' => $options['seconds'],
 		'url' => $options['url'],
+		'showtimer' => $options['showtimer'],
+		'timermessage' => $options['timermessage'],
 	), $atts, 'wpexitpage' ) );
 
-	$lgrwpexitpage_display = '<div class="wpexitlink">'.$message.' <a href="'.$url.'" rel="nofollow">'.$link.'</a></div>';
+	$jsseconds = $seconds+1;
+
+	if ($showtimer=='on') {
+		$timerjs ='<script type="text/javascript">//<![CDATA[ 
+//Javascript thanks to Stack Overflow. With a couple small changes.
+//http://stackoverflow.com/questions/1191865/code-for-a-simple-javascript-countdown-timer
+var count='.$jsseconds.';
+var counter=setInterval(timer, 1000);
+function timer() {
+  count=count-1;
+  if (count < 0) {
+     clearInterval(counter);
+     return;
+  }
+ document.getElementById("lgrtimer").innerHTML=count; 
+}
+//]]>
+</script>
+';
+		$tmessage = $timermessage.' <span id="lgrtimer">'.$seconds.'</span> seconds.';
+	}
+	else {
+		$timerjs ='';
+		$tmessage ='';
+	}
+	$lgrwpexitpage_display = $timerjs.'
+<div class="wpexitlink">'.$message.' <a href="'.$url.'" rel="nofollow">'.$link.'</a> '.$tmessage.'</div>';
 
 	return $lgrwpexitpage_display;
 }

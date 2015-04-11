@@ -3,8 +3,8 @@ Contributors: LGRIS
 Donate link: http://www.lgr.ca/wp-exit-page-redirect/
 Tags: exit page, redirect, shortcode, short code, meta redirect
 Requires at least: 3.5
-Tested up to: 4.0
-Stable tag: 1.0
+Tested up to: 4.1.1
+Stable tag: 1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -30,7 +30,7 @@ You can set the wait time to 0 seconds, but by doing that people probably will n
 
 = Can the text be styled? =
 
-If you know CSS the text the shortcode outputs is inside a div with the class wpexitcode. You should be able to style the div and text how you want.
+If you know CSS the text the shortcode output is inside a div with the class wpexitcode. You should be able to style the div and text how you want.
 
 = Does this plugin create the exit page for me? =
 
@@ -42,6 +42,12 @@ No, this plugin makes it possible to redirect from the page/post you create in W
 1. The settings page.
 
 == Changelog ==
+= 1.2 =
+* Added the option to show a countdown timer.
+* Added the option to change more text.
+* Added additional options to modify the default settings from a shortcode.
+* Updated some of the default text. 
+
 
 = 1.1 =
 * Updating meta refresh tag to work better on some websites. Fixing typos and updating broken URL's. 
